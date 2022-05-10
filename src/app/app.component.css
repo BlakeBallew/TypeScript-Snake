@@ -1,0 +1,99 @@
+.header-container {
+    text-align: center;
+    padding-top: 3vh;
+    color: whitesmoke;
+    font-size: 1.1rem;
+}
+
+.board-container {
+    padding-top: 3vh;
+    display: table;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    background-color: blue;
+    height: 20px;
+    width: 20px;
+    margin: 1px;
+}
+
+.snake {
+    background-color: yellow;
+    height: 20px;
+    width: 20px;
+    margin: 1px;
+}
+
+.head {
+    background-color: yellowgreen;
+    height: 20px;
+    width: 20px;
+    margin: 1px;    
+}
+
+.fruit {
+    background-color: whitesmoke;
+    height: 20px;
+    width: 20px;
+    margin: 1px;
+}
+
+.dead-cell {
+    background-color: red;
+    height: 20px;
+    width: 20px;
+    margin: 1px;  
+}
+
+.footer-container {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1%;
+    margin-right: 1%;
+    color: whitesmoke;
+    font-size: 0.8rem;
+}
+
+.author-link {
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.play-again-underline {
+    color: whitesmoke;
+    border-color: #282c34;
+    border: none;
+    font-size: 1.1rem;
+    text-decoration: none;
+    outline: none;
+    border-bottom: 1px solid whitesmoke;
+    font-family: "Play";
+    font-weight: bold;
+}
+
+.play-again-default {
+    color: whitesmoke;
+    border-color: #282c34;
+    border: none;
+    font-size: 1.1rem;
+    text-decoration: none;
+    outline: none;
+    font-family: "Play";
+    font-weight: bold;
+}
+
+.scores {
+    display: flex;
+}
+
+.highScore {
+    padding-left: 30px;
+}

@@ -13,8 +13,7 @@
     <div class="header-container">
       <h1>TypeScript Snake</h1>
     </div>
-
-    <div class="board-container">
+      <div class="board-container">
       <div *ngFor="let sublist of gameBoard" class="row">
         <div *ngFor="let atom of sublist" class="column">
           <div class="{{giveColor(atom)}}">

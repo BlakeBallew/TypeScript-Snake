@@ -30,7 +30,6 @@ export class AppComponent implements OnInit{
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (this.alive && !this.cooldownActive){
-      
       //cooldown helps reduce number of accidental deaths from chaotic keypresses
       this.cooldownActive = true;
       if (event.key==='ArrowDown'){
@@ -59,6 +58,10 @@ export class AppComponent implements OnInit{
           this.xDirection = 1;
           this.yDirection = 0;
         }
+      }
+    } else {
+      if (event.key === 'Enter'){
+        this.gameReset();
       }
     }
   }
@@ -208,10 +211,8 @@ export class AppComponent implements OnInit{
 
   //set game to iterate upon initializing
   ngOnInit(): void {
-    setInterval(() => {this.gameIteration()}, 110);
+    setInterval(() => {this.gameIteration()}, 95);
     delete this.cellIds[this.cellIds.indexOf(this.snakeIds[0])]
   }
-
-
 }
 

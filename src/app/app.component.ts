@@ -24,14 +24,24 @@ export class AppComponent implements OnInit{
   deadDuration: number = 0;
   gameResetUnderline: boolean = false;
   cooldownActive: boolean = false;
+  startedGame: boolean = false;
 
   //setInterval(() => {this.allowNewServer=!this.allowNewServer}, 4000);
   //listen for keypresses, but only take note if the snake is alive
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (this.alive && !this.cooldownActive){
+     
       //cooldown helps reduce number of accidental deaths from chaotic keypresses
-      this.cooldownActive = true;
+      this.cooldownActive = true; 
+
+      //only start the game once user picks direction
+      if (this.xDirection === 0 
+        && this.yDirection === 0 
+        && !this.startedGame){
+        this.gameIteration();
+        this.startedGame = true;
+      }
       if (event.key==='ArrowDown'){
         if ((this.yDirection !== -1) || (this.snakeIds.length === 1)){
           this.xDirection = 0;
@@ -59,7 +69,7 @@ export class AppComponent implements OnInit{
           this.yDirection = 0;
         }
       }
-    } else {
+    } else if(!this.alive) {
       if (event.key === 'Enter'){
         this.gameReset();
       }
@@ -81,11 +91,14 @@ export class AppComponent implements OnInit{
       } else {
         this.cellQueue -= 1;
       }
+    setTimeout(() => {this.gameIteration()}, Math.max(75, Math.ceil(95-this.snakeIds.length/15)));
       delete this.cellIds[this.cellIds.indexOf(newSnakeCell)];
-    } else {
+    } else  {
+      if ((this.deadDuration < 5)){
+        setTimeout(() => {this.gameIteration()}, 105);
+      }
       this.deadDuration += 1;
     }
-
     //update the non-snake array that we use for generating fruits
     this.cellIds.push()
     this.cellIds = this.cellIds.filter(element => {
@@ -153,7 +166,7 @@ export class AppComponent implements OnInit{
     }
 
     //makes snake blink red upon dying
-    if (!this.alive && this.snakeIds.includes(cellId) && (this.deadDuration%2===1) && this.deadDuration<6){
+    if (!this.alive && this.snakeIds.includes(cellId) && (this.deadDuration%2===1)){
       cellClass = 'cell';
     }  
     return cellClass;    
@@ -197,6 +210,7 @@ export class AppComponent implements OnInit{
     this.snakeIds.push(this.getInitialSnakeCell());
     
     //reset everything
+    this.startedGame = false;
     this.cellQueue = 0;
     this.alive = true;
     this.xDirection = 0;
@@ -206,12 +220,8 @@ export class AppComponent implements OnInit{
     this.fruitLocation = this.getRandomFruitCell();
   }
 
-
-
-
   //set game to iterate upon initializing
   ngOnInit(): void {
-    setInterval(() => {this.gameIteration()}, 95);
     delete this.cellIds[this.cellIds.indexOf(this.snakeIds[0])]
   }
 }
